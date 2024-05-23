@@ -1,4 +1,6 @@
 {
+  "files": ["vite.config.ts"]
+}
   "compilerOptions": {
     "composite": true,
     "skipLibCheck": true,
