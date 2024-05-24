@@ -5,17 +5,12 @@ import Signup from "./pages/Signup";
 import BooksPage from "./pages/BooksList";
 import DashboardLayout from "./layouts/DashboardLayout";
 import AuthLayout from "./layouts/AuthLayout";
+import Landing from "./pages/Landing";
 
 const Router = createBrowserRouter([
   {
     path: "/",
-    element: <AuthLayout />,
-    children: [
-      {
-        path: "/",
-        element: <Signup />,
-      },
-    ],
+    element: <Landing />,
   },
   {
     path: "/dashboard",

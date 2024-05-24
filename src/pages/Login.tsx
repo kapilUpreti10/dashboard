@@ -6,6 +6,7 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/store/Store";
 import { setAlert, clearAlert } from "@/redux/slice/AlertSlice";
+import { setCurrentUser } from "@/redux/slice/UserSlice";
 
 import ShowAlert from "@/my-components/ShowAlert";
 
@@ -62,6 +63,7 @@ const Login = () => {
             message: "Login successful",
           })
         );
+        dispatch(setCurrentUser(email));
         const timer2 = setTimeout(() => {
           navigateTo("/dashboard/home");
         }, 2000);
