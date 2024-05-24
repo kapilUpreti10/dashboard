@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Link } from "react-router-dom";
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "@/redux/store/Store";
+import { setAlert, clearAlert } from "@/redux/slice/AlertSlice";
+
+import ShowAlert from "@/my-components/ShowAlert";
 
 import {
   Card,
@@ -21,12 +27,55 @@ const Login = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passRef = useRef<HTMLInputElement>(null);
 
-  // const navigateTo=useNavigate();
+  const navigateTo = useNavigate();
+  const dispatch = useDispatch();
+  const alert = useSelector((state: RootState) => state.alert);
 
-  const submitLogin = () => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(clearAlert());
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, [alert.message, alert.type]);
+
+  const submitLogin = async () => {
     const email = emailRef.current?.value;
     const password = passRef.current?.value;
-    console.log({ email, password });
+    try {
+      if (!email || !password) {
+        dispatch(
+          setAlert({
+            type: "error",
+            message: "Please fill all fields",
+          })
+        );
+        return;
+      }
+      const response = await axios.post("/api/v1/users/user/login", {
+        email,
+        password,
+      });
+      if (response.data.status === "success") {
+        dispatch(
+          setAlert({
+            type: "success",
+            message: "Login successful",
+          })
+        );
+        const timer2 = setTimeout(() => {
+          navigateTo("/dashboard/home");
+        }, 2000);
+        return () => clearTimeout(timer2);
+      }
+    } catch (err) {
+      console.log(err);
+      dispatch(
+        setAlert({
+          type: "error",
+          message: err.response.data.message,
+        })
+      );
+    }
   };
   return (
     <div className="h-screen flex justify-center items-center">
@@ -64,6 +113,7 @@ const Login = () => {
             SignUp
           </Link>
         </div>
+        {alert.message && <ShowAlert />}
       </Card>
     </div>
   );

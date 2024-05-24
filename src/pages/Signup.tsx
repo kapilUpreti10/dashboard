@@ -54,6 +54,13 @@ const Signup = () => {
       }
     } catch (err) {
       console.log(err);
+      const error = err.response?.data?.message;
+      dispatch(
+        setAlert({
+          message: error || "An error occurred",
+          type: "error",
+        })
+      );
     }
   };
 
