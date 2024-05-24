@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Link } from "react-router-dom";
 import React, { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   Card,
@@ -18,6 +20,8 @@ const Login = () => {
 
   const emailRef = useRef<HTMLInputElement>(null);
   const passRef = useRef<HTMLInputElement>(null);
+
+  // const navigateTo=useNavigate();
 
   const submitLogin = () => {
     const email = emailRef.current?.value;

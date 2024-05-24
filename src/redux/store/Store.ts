@@ -1,10 +1,13 @@
-import { configureStore } from "@reduxjs/toolkit";
-import AlertReducer from "../slice/AlertSlice";
+import { configureStore } from '@reduxjs/toolkit';
+import alertReducer from '../slice/AlertSlice';
 
-const Store = configureStore({
+const store = configureStore({
   reducer: {
-    alert: AlertReducer,
+    alert: alertReducer,
   },
 });
 
-export default Store;
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
+export default store;

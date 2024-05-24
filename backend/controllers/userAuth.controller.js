@@ -39,8 +39,9 @@ export const getUsers = catchAsync(async (req, res) => {
 // signup the users
 
 export const signup = catchAsync(async (req, res) => {
-  const { username, email, password } = req.body;
-  if (!username || !email || !password) {
+  console.log(req.body);
+  const { username, email, password, confirmPassword } = req.body;
+  if (!username || !email || !password || !confirmPassword) {
     return res.status(400).json({
       status: "fail",
       message: "Please provide all the required fields",
