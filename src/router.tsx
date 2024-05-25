@@ -11,6 +11,8 @@ import Redirect from "./my-components/Redirect";
 
 import ErrorPage from "./utils/ErrorPage";
 import MoviesPage from "./pages/Movies";
+import MovieOverview from "./pages/MovieOverview";
+import AddToCartPage from "./pages/AddtoCartPage";
 
 const Router = createBrowserRouter([
   {
@@ -44,7 +46,14 @@ const Router = createBrowserRouter([
           {
             path: "movies",
             element: <MoviesPage />,
-            // outletName: "hello",
+          },
+          {
+            path: "movies/detail/:movie/:id",
+            element: <MovieOverview />,
+          },
+          {
+            path: "cartItems",
+            element: <AddToCartPage />,
           },
         ],
       },
