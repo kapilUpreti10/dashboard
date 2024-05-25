@@ -56,6 +56,8 @@ const Login = () => {
         email,
         password,
       });
+      console.log(response.data);
+      const token = response.data.token;
       if (response.data.status === "success") {
         dispatch(
           setAlert({
@@ -63,7 +65,7 @@ const Login = () => {
             message: "Login successful",
           })
         );
-        dispatch(setCurrentUser(email));
+        dispatch(setCurrentUser({ user: email, accessToken: token }));
         const timer2 = setTimeout(() => {
           navigateTo("/dashboard/home");
         }, 2000);
