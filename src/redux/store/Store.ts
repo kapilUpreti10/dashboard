@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import alertReducer from '../slice/AlertSlice';
 import userReducer from '../slice/UserSlice';
+import cartReducer from '../slice/CartSlice';
 
 // Function to load state from localStorage
 const loadState = () => {
@@ -31,6 +32,7 @@ const store = configureStore({
   reducer: {
    alert:alertReducer,
     user: userReducer,
+    cart: cartReducer,
   },
   preloadedState: persistedState, // Set initial state
 });

@@ -17,7 +17,7 @@ const MovieCard = ({ movie }) => {
         <img
           src={Poster}
           alt={Title}
-          className="w-full h-80 md:h-60 object-fit"
+          className="w-full h-80 md:h-60 object-contain"
         />
         <div className="absolute inset-0 bg-black opacity-0 hover:opacity-75 flex items-center justify-center transition duration-300">
           <ShoppingCart className="text-white w-12 h-12" />

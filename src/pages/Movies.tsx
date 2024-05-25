@@ -11,10 +11,10 @@ const MoviesPage = () => {
 
   // generate a random movie if no movie is provided
   // Arrays of words for different parts of the movie name
-  const prefixes = ["The", "A", "An", "My", "Your"];
-  const adjectives = ["Great", "Fantastic", "Amazing", "Wonderful", "Epic"];
-  const nouns = ["Adventure", "Journey", "Quest", "Tale", "Saga"];
-  const suffixes = ["Part I", "Part II", "Returns", "Revenge", "Awakens"];
+  // const prefixes = ["The", "A", "An", "My", "Your"];
+  // const adjectives = ["Great", "Fantastic", "Amazing", "Wonderful", "Epic"];
+  // const nouns = ["Adventure", "Journey", "Quest", "Tale", "Saga"];
+  // const suffixes = ["Part I", "Part II", "Returns", "Revenge", "Awakens"];
 
   // Function to generate a random movie name
   // function generateRandomMovieName() {
