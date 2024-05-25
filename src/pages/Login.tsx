@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Link } from "react-router-dom";
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
@@ -27,6 +27,8 @@ const Login = () => {
 
   const emailRef = useRef<HTMLInputElement>(null);
   const passRef = useRef<HTMLInputElement>(null);
+
+  const [error, setError] = useState(null);
 
   const navigateTo = useNavigate();
   const dispatch = useDispatch();
@@ -73,6 +75,7 @@ const Login = () => {
       }
     } catch (err) {
       console.log(err);
+      setError(err);
       dispatch(
         setAlert({
           type: "error",

@@ -2,13 +2,15 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import HomePage from "./pages/Home";
 import Signup from "./pages/Signup";
-import BooksPage from "./pages/BooksList";
 import DashboardLayout from "./layouts/DashboardLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import Landing from "./pages/Landing";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import Redirect from "./my-components/Redirect";
+
+import ErrorPage from "./utils/ErrorPage";
+import MoviesPage from "./pages/Movies";
 
 const Router = createBrowserRouter([
   {
@@ -40,8 +42,8 @@ const Router = createBrowserRouter([
             // outletName: "main",
           },
           {
-            path: "books",
-            element: <BooksPage />,
+            path: "movies",
+            element: <MoviesPage />,
             // outletName: "hello",
           },
         ],
@@ -61,6 +63,15 @@ const Router = createBrowserRouter([
         element: <Signup />,
       },
     ],
+  },
+  {
+    path: "*",
+    element: (
+      <ErrorPage
+        errorTittle="Invalid Route"
+        errorMessage="Sry the given route cannot be found"
+      />
+    ),
   },
 ]);
 

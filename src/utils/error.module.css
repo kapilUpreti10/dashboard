@@ -1,0 +1,13 @@
+.error-page {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .error-tittle{
+    font-size: 48px;
+    color: #ff0000;
+  }
+  
+  .error-message {
+    font-size: 18px;
+  }
