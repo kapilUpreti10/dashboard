@@ -18,6 +18,9 @@ import ShowAlert from "@/my-components/ShowAlert";
 import { RootState } from "@/redux/store/Store";
 import { setAlert, clearAlert } from "@/redux/slice/AlertSlice";
 
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const Signup = () => {
   const dispatch = useDispatch();
   const alert = useSelector((state: RootState) => state.alert);
@@ -64,15 +67,20 @@ const Signup = () => {
     }
   };
 
+  // handling alert
   useEffect(() => {
-    if (alert.message) {
-      const timer = setTimeout(() => {
-        dispatch(clearAlert());
-      }, 1500);
-
-      return () => clearTimeout(timer);
+    if (alert.type === "success") {
+      toast.success(alert.message);
+    } else if (alert.type === "error") {
+      toast.error(alert.message);
     }
-  }, [alert.message, dispatch]);
+
+    const timer = setTimeout(() => {
+      dispatch(clearAlert());
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, [alert, dispatch]);
 
   return (
     <div className="flex justify-center items-center h-screen">
@@ -132,7 +140,7 @@ const Signup = () => {
             </Link>
           </div>
         </CardContent>
-        {alert.message && <ShowAlert />}
+        {/* {alert.message && <ShowAlert />} */}
       </Card>
     </div>
   );

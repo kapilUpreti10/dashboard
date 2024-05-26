@@ -1,7 +1,7 @@
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "@/redux/slice/UserSlice";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -26,24 +26,52 @@ import {
   Menu,
 } from "lucide-react";
 
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store/Store";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const DashboardLayout = () => {
   const dispatch = useDispatch();
   const navigateMovie = useNavigate();
-
   const [search, setSearch] = useState("");
+  const [count, setCount] = useState(0);
+  const alert = useSelector((state: RootState) => state.alert);
+  const movie = useSelector((state: RootState) => state.cart);
+
   const handleChange = (e) => {
     setSearch(e.target.value);
   };
+
   const handleSearch = (e) => {
     if (e.key === "Enter") {
-      console.log("enter pressed");
       navigateMovie(`/dashboard/movies?movie=${search}`);
     }
   };
-  console.log(search);
+
   const logoutUser = () => {
     dispatch(setCurrentUser({ user: "", accessToken: "" }));
   };
+
+  useEffect(() => {
+    if (
+      alert.type === "success" &&
+      alert.message === "logged out successfully"
+    ) {
+      toast.success("Logged out successfully");
+    } else if (alert.type === "error" && alert.message === "failed to logout") {
+      toast.error("Failed to logout");
+    }
+  }, [alert]);
+
+  useEffect(() => {
+    let totalCount = 0;
+    movie.forEach((item) => {
+      totalCount += item.quantity;
+    });
+    setCount(totalCount);
+  }, [movie]);
+
   return (
     <div>
       <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
@@ -74,9 +102,7 @@ const DashboardLayout = () => {
                 >
                   <ShoppingCart className="h-4 w-4" />
                   Orders
-                  <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                    6
-                  </Badge>
+                  <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full "></Badge>
                 </Link>
                 <Link
                   to="/dashboard/movies"
@@ -125,7 +151,7 @@ const DashboardLayout = () => {
                     <ShoppingCart className="h-5 w-5" />
                     Orders
                     <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                      6
+                      {count}
                     </Badge>
                   </Link>
                   <Link

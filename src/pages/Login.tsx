@@ -22,6 +22,9 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const Login = () => {
   // since useState cause re-rendering, we use useRef as it doesn't cause re-rendering as useState is only used to update the state in ui here it is not necessary to update state in ui
 
@@ -35,11 +38,18 @@ const Login = () => {
   const alert = useSelector((state: RootState) => state.alert);
 
   useEffect(() => {
+    if (alert.type === "success") {
+      toast.success(alert.message);
+    } else if (alert.type === "error") {
+      toast.error(alert.message);
+    }
+
     const timer = setTimeout(() => {
       dispatch(clearAlert());
     }, 1500);
+
     return () => clearTimeout(timer);
-  }, [alert.message, alert.type]);
+  }, [alert, dispatch]);
 
   const submitLogin = async () => {
     const email = emailRef.current?.value;
@@ -120,7 +130,7 @@ const Login = () => {
             SignUp
           </Link>
         </div>
-        {alert.message && <ShowAlert />}
+        {/* {alert.message && <ShowAlert />} */}
       </Card>
     </div>
   );

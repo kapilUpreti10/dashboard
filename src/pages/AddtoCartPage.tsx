@@ -3,9 +3,11 @@ import { ShoppingCart } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store/Store";
 import { addToCart, clearCart, removeFromCart } from "@/redux/slice/CartSlice";
+import { useNavigate } from "react-router-dom";
 
 const AddToCartPage = () => {
   const dispatch = useDispatch();
+  const navigateToPayment = useNavigate();
   const cart = useSelector((state: RootState) => state.cart);
 
   const totalPrice = cart.reduce((totalAmount, item) => {
@@ -67,7 +69,10 @@ const AddToCartPage = () => {
           </h3>
         </div>
       </div>
-      <button className="mt-6 flex items-center justify-center px-6 py-3 bg-green-500 text-white rounded-md hover:bg-green-600">
+      <button
+        className="mt-6 flex items-center justify-center px-6 py-3 bg-green-500 text-white rounded-md hover:bg-green-600"
+        onClick={() => navigateToPayment("/payment")}
+      >
         <ShoppingCart className="w-6 h-6 mr-2" />
         Proceed to Checkout
       </button>

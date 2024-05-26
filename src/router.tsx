@@ -13,6 +13,7 @@ import ErrorPage from "./utils/ErrorPage";
 import MoviesPage from "./pages/Movies";
 import MovieOverview from "./pages/MovieOverview";
 import AddToCartPage from "./pages/AddtoCartPage";
+import Payment from "./pages/Payment";
 
 const Router = createBrowserRouter([
   {
@@ -25,6 +26,7 @@ const Router = createBrowserRouter([
       },
     ],
   },
+
   {
     path: "/dashboard",
     element: <ProtectedRoute />,
@@ -70,6 +72,16 @@ const Router = createBrowserRouter([
       {
         path: "signup",
         element: <Signup />,
+      },
+    ],
+  },
+  {
+    path: "/payment",
+    element: <ProtectedRoute />,
+    children: [
+      {
+        path: "",
+        element: <Payment />,
       },
     ],
   },
